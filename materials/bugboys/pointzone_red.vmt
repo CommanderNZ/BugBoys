@@ -1,0 +1,17 @@
+UnlitGeneric
+{
+	"$baseTexture" "bugboys/pointzone_red"
+	"$translucent" 1
+	"$model" 1
+
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" 0.3
+			"texturescrollangle" 0.00
+		}
+		
+	}
+}

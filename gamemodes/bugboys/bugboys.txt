@@ -1,0 +1,56 @@
+"bugboys"
+{
+	"base"		"base"
+	"title"		"Bug Boys"
+	"maps"		"^bb_"
+	"menusystem"	"1"
+	"workshopid"	"751168872"
+
+	"settings"
+	{
+		1
+		{
+			"name"		"bb_var_pubmode"
+			"text"		"Pub Mode (no readying-up)"
+			"help"		"Auto starts the game after 1 min if both teams have players (disables readying up)"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+
+		2
+		{
+			"name"		"bb_var_gametime"
+			"text"		"Game Duration (in seconds)"
+			"help"		"How long until the game timer runs out"
+			"type"		"Numeric"
+			"default"	"1200"
+		}
+		
+		3
+		{
+			"name"		"bb_var_setuptime"
+			"text"		"Setup Time (in seconds)"
+			"help"		"How much time to give players to build at the start of the game"
+			"type"		"Numeric"
+			"default"	"150"
+		}
+		
+		4
+		{
+			"name"		"bb_var_startingtokens"
+			"text"		"Starting Tokens"
+			"help"		"How many tokens time to give each team at the start of the game"
+			"type"		"Numeric"
+			"default"	"50"
+		}
+
+		5
+		{
+			"name"		"bb_var_devmode"
+			"text"		"Developer Mode"
+			"help"		"Enables developers mode (allows you to start the game with 1 person)"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+	}
+}

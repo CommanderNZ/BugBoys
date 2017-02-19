@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "bugboys/ghost_red"
+	"$selfillum" 1
+	"$model" 1
+	"$translucent" 1
+	"$nocull" 1
+}

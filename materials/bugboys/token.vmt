@@ -1,0 +1,17 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "bugboys/token.vtf"
+	"$translucent" 1
+	"$model" 1
+
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" 0.75
+			"texturescrollangle" 90.00
+		}
+		
+	}
+}

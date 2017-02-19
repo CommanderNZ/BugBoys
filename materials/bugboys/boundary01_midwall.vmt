@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "bugboys/boundary01.vtf"
+	"$surfaceprop" "rock"
+	"$alphatest" 1
+}

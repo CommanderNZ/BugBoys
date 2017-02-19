@@ -1,0 +1,8 @@
+"WorldVertexTransition"
+{
+	"$basetexture2" "bugboys/dirt01"
+	"$basetexture" "bugboys/grass01"
+	"%tooltexture" "bugboys/grass01"
+	"$surfaceprop" "dirt"
+
+}

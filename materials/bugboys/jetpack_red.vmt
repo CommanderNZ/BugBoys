@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "bugboys/jetpack_red"
+	"$selfillum" 1
+	"$model" 1
+}

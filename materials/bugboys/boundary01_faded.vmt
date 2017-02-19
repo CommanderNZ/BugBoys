@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "bugboys/boundary01_faded"
+	"$surfaceprop" "rock"
+	"$alphatest" 1
+	"$nocull" 1
+}

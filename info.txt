@@ -1,0 +1,15 @@
+"AddonInfo"
+{
+	"name" "Bug Boys - Fortress Defense"
+	"author_name" "Author Name"
+	"info" "
+{
+	"description": "Description",
+	"type": "gamemode",
+	"tags": 
+	[
+		"build",
+		"fun"
+	]
+}"
+}
