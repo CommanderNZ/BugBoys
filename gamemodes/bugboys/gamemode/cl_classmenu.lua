@@ -59,9 +59,6 @@ function ShowTeamMenu()
 		end
 	end 
 	
-	
-	
-	
 	local min = false
 	
 	local function Update()
@@ -85,7 +82,6 @@ function ShowTeamMenu()
 	end
 	hook.Add("Think", "UpdateClassMenu", Update)
 
-
 	--closes the whole menu
 	local function Close()
 		
@@ -103,8 +99,6 @@ function ShowTeamMenu()
 		hook.Remove( "Think", "UpdateClassMenu" )
 	end
 	usermessage.Hook( "ClassPanel_Close", Close )
-
- 
 
 end
 usermessage.Hook( "ClassPanel_Open", ShowTeamMenu )

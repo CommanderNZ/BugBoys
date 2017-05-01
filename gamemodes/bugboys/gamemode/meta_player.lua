@@ -3,10 +3,6 @@
 ---------------------------------------------------------]]--
 local BBPlayer = FindMetaTable("Player")
 
-
-
-
-
 function BBPlayer:AddSwepAbility( abil )
 	local ref = SwepabilityReference( abil )
 
@@ -25,9 +21,6 @@ function BBPlayer:GetSwepAbility()
 	return self:GetNetworkedString("SwepAbility", nil)
 end
 
-
-
-
 --[[
 function BBPlayer:SetMaxHealth( amount )
 	//print("setting gained damage to:  ")
@@ -38,8 +31,6 @@ function BBPlayer:GetMaxHealth()
 	return self:GetNetworkedInt("GainedDamage", 0)
 end
 ]]--
-
-
 
 --[[
 --this is the full amount of time
@@ -52,8 +43,6 @@ function BBPlayer:GetShownRespawnTime( )
 end
 ]]--
 
-
-
 --OBSOLETE
 function BBPlayer:SetShowGhost( bool )
 	self:SetNetworkedBool( "ShowGhost", bool )
@@ -63,11 +52,6 @@ function BBPlayer:GetShowGhost( )
 	return self:GetNetworkedBool("ShowGhost", false)
 end
 
-
-
-
-
-
 function BBPlayer:SetRespawnTime( int )
 	self:SetNetworkedInt( "RespawnTime", int )
 end
@@ -75,9 +59,6 @@ end
 function BBPlayer:GetRespawnTime( )
 	return self:GetNetworkedInt("RespawnTime", 0)
 end
-
-
-
 
 --Whether or not the player is ready for the game to begin, game cant start until all players are ready
 function BBPlayer:SetIfReady( bool )
@@ -97,12 +78,6 @@ function BBPlayer:GetIfReady()
 	return self:GetNetworkedBool("Ready", false)
 end
 
-
-
-
-
-
-
 --Votes AGAINST this player trying to kick him out
 function BBPlayer:SetVotesInt( int )
 	self:SetNetworkedInt( "VotesInt", int )
@@ -111,10 +86,6 @@ end
 function BBPlayer:GetVotesInt()
 	return self:GetNetworkedInt("VotesInt", 0)
 end
-
-
-
-
 
 --if you want to add to the players slider damage
 function BBPlayer:SetGainedDamage( amount )
@@ -126,29 +97,15 @@ function BBPlayer:GetGainedDamage()
 	return self:GetNetworkedInt("GainedDamage", 0)
 end
 
-
-
-
-
-
-
-
 function BBPlayer:BBChatPrint( str )
 	self:ChatPrint( str )
 end
-
-
 
 --plays a sound so only this player can hear it
 function BBPlayer:PlayLocalSound( sound )
 	umsg.Start( sound, self )
 	umsg.End()
 end
-
-
-
-
-
 
 --[[---------------------------------------------------------
 	Held ent - usually used to display info about ents certain classes can carry in inventory
@@ -161,12 +118,6 @@ end
 function BBPlayer:GetHeldEnt()
 	return self:GetNetworkedString("HeldEnt", 0)
 end
-
-
-
-
-
-
 
 --[[---------------------------------------------------------
 	Tokens
@@ -189,9 +140,6 @@ function BBPlayer:SubtractTokens( amount )
 	local curamount = self:GetNetworkedInt("Tokens", 0)
 	self:SetNetworkedInt("Tokens", curamount - amount)
 end
-
-
-
 
 --when a player changes teams, he drops all his tokens for his ex teammates to use
 --or when he leaves the game
@@ -231,13 +179,6 @@ function BBPlayer:DropAllTokensInSpawn()
 	end
 end
 
-
-
-
-
-
-
-
 --sets what the player's crafting ray will craft crystals into
 --takes craft names EX. "craft_block"
 function BBPlayer:SetCraft( craft )
@@ -260,12 +201,6 @@ function BBPlayer:GetCraft()
 	return self:GetNetworkedString("Craft", "craft_wall")
 end
 
-
-
-
-
-
-
 function BBPlayer:SetIfTeamJoinMenuOpen( bool )
 	self:SetNetworkedBool( "TeamJoinMenuOpen", bool )
 end
@@ -273,9 +208,6 @@ end
 function BBPlayer:GetIfTeamJoinMenuOpen()
 	return self:GetNetworkedBool("TeamJoinMenuOpen", false)
 end
-
-
-
 
 function BBPlayer:TeamMenu_Open()
 	if self:GetIfTeamJoinMenuOpen() == true then
@@ -295,7 +227,6 @@ function BBPlayer:TeamMenu_Open()
 	umsg.End()
 end
 
-
 function BBPlayer:TeamMenu_Close()
 	if self:GetIfTeamJoinMenuOpen() == true then
 		umsg.Start( "TeamsPanel_Close", self )
@@ -305,15 +236,6 @@ function BBPlayer:TeamMenu_Close()
 	end
 end
 
-
-
-
-
-
-
-
-
-
 function BBPlayer:SetIfClassMenuOpen( bool )
 	self:SetNetworkedBool( "ClassMenuOpen", bool )
 end
@@ -321,8 +243,6 @@ end
 function BBPlayer:GetIfClassMenuOpen()
 	return self:GetNetworkedBool("ClassMenuOpen", false)
 end
-
-
 
 function BBPlayer:ClassMenu_Open()
 	if self:GetIfTeamJoinMenuOpen() == true then
@@ -348,12 +268,6 @@ function BBPlayer:ClassMenu_Close()
 	end
 end
 
-
-
-
-
-
-
 --[[---------------------------------------------------------
 	Puck code
 ---------------------------------------------------------]]--
@@ -370,10 +284,6 @@ function BBPlayer:GetPuckClass()
 		return self:GetNetworkedString("PuckClass", "-")
 	end
 end
-
-
-
-
 
 function BBPlayer:SpawnPuck(Pos)
 	-- Make sure we have a valid/connected player
@@ -422,11 +332,6 @@ function BBPlayer:SpawnPuck(Pos)
 	return Puck
 end
 
-
-
-
-
-
 function BBPlayer:SetNetPuck( puck )
 	self:SetNetworkedEntity("Puck", puck)
 end
@@ -439,11 +344,9 @@ function BBPlayer:HasNetPuck()
 	return IsValid( self:GetNetworkedEntity("Puck", false) )
 end
 
-
 function BBPlayer:HasPuck()
 	return IsValid(self.Puck)
 end
-
 
 function BBPlayer:GetPuck()
 	if SERVER then
@@ -454,7 +357,6 @@ function BBPlayer:GetPuck()
 		return self:GetNetPuck()
 	end
 end
-
 
 function BBPlayer:GetPuckPos()
 	if IsValid(self.Puck) then
@@ -515,8 +417,6 @@ end
 
 ]]--
 
-
-
 function BBPlayer:SpectateDeathSpot()
 	if self:Team() == TEAM_SPEC then return end
 	if self.DeathSpot == nil then return end
@@ -536,8 +436,6 @@ function BBPlayer:SpectateDeathSpot()
 	
 	self:SetEyeAngles( oldeyeangs )
 end
-
-
 
 --handles respawning based on what stage of the game we're in right now
 function BBPlayer:AddToNextRespawn( x )

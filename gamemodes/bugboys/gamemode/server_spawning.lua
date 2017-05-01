@@ -7,7 +7,7 @@
 
 --called when a player first enters the server
 function GM:PlayerInitialSpawn( ply )
-	ply:SetTeam(TEAM_SPEC)
+	ply:SetTeam(TEAM_BLUE)
 	ply:PrintMessage( HUD_PRINTTALK, "Welcome, " .. ply:Name() .. "!" )
 	ply:TeamMenu_Open()
 
@@ -97,6 +97,16 @@ end
 
 function GM:PlayerSelectSpawn( ply )
 	self.SpawnTable = {}
+	
+	if GetConVarNumber("bb_autoteambalance")>=1 then
+		local bb = team.NumPlayers(TEAM_BLUE)
+		local rr = team.NumPlayers(TEAM_RED)
+		if bb > (rr + 1) then
+			ply:SetTeam(TEAM_RED)
+		elseif (rr > bb + 1) then
+			ply:SetTeam(TEAM_BLUE)
+		end
+	end
 
 	--Set the players spawn table to be his team's spawn table
 	if (ply:Team() == TEAM_SPEC) then

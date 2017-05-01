@@ -3,16 +3,7 @@ GM.Author = "Sean 'Heyo' Cutino"
 GM.Email = ""
 GM.Website = ""
 
-
-
-
 CAN_NOCLIP = false
-
-
-
-
-
-
 
 --gets returns vec position with Z modified so its on the ground
 function ToGround( vec, filter )
@@ -26,14 +17,6 @@ function ToGround( vec, filter )
 
 	return hitpos
 end
-
-
-
-
-
-
-
-
 
 --Disable footsteps
 function GM:PlayerFootstep( ply, pos, foot, sound, volume, rf ) 
@@ -50,11 +33,6 @@ function GM:PlayerFootstep( ply, pos, foot, sound, volume, rf )
 end
 
 
-
-
-
-
-
 /*---------------------------------------------------------
 	Team Set Up and team methods
 ---------------------------------------------------------*/
@@ -67,15 +45,10 @@ team.SetUp( TEAM_RED, "Red Team", Color( 255, 0, 0, 255 ), true )
 team.SetUp( TEAM_BLUE, "Blue Team", Color( 0, 0, 255, 255 ), true )
 team.SetUp( TEAM_SPEC, "Spectators", Color( 200, 200, 200, 255 ), true )
 
-
-
+CreateConVar("bb_autoteambalance",1,{FCVAR_REPLICATED,FCVAR_ARCHIVE},"Keeps Teams Balanced")
 
 //function GetTeamRespawnTime()
 //end
-
-
-
-
 
 function SetShieldHealth( teamnum, hp )
 	if teamnum == TEAM_BLUE then
@@ -93,11 +66,6 @@ function GetShieldHealth( teamnum )
 	end
 end
 
-
-
-
-
-
 function SetBrainHealth( teamnum, hp )
 	if teamnum == TEAM_BLUE then
 		SetGlobalInt("Brain_Blue_HP", hp)
@@ -113,9 +81,6 @@ function GetBrainHealth( teamnum )
 		return GetGlobalInt("Brain_Red_HP", 0)
 	end
 end
-
-
-
 
 --this runs at the beginning of the round
 function SetTeamStartingTokens()
@@ -144,7 +109,6 @@ function SetTeamStartingTokens()
 	SetGlobalInt("Red_StartingTokens", redtokens)
 end
 
-
 function GetTeamStartingTokens( teamnum )
 	if teamnum == TEAM_BLUE then	
 		return GetGlobalInt("Blue_StartingTokens", 0)
@@ -153,8 +117,6 @@ function GetTeamStartingTokens( teamnum )
 	end
 end
 
-
-
 function GetOppositeTeam( teamnum )
 	if teamnum == TEAM_RED then	
 		return TEAM_BLUE
@@ -162,13 +124,6 @@ function GetOppositeTeam( teamnum )
 		return TEAM_RED
 	end
 end
-
-
-
-
-
-
-
 
 function ResetDeathCounter()
 	SetGlobalInt("Blue_Deaths", 0)
@@ -197,12 +152,6 @@ function GetHowManyDeaths( teamnum )
 	end
 end
 
-
-
-
-
-
-
 --team based lives code
 
 function SetLives( teamnum, amount )
@@ -212,7 +161,6 @@ function SetLives( teamnum, amount )
 		SetGlobalInt("Red_Lives", amount)
 	end
 end
-
 
 function AddLife( teamnum, amount )
 	if amount == nil then
@@ -228,7 +176,6 @@ function AddLife( teamnum, amount )
 	end
 end
 
-
 function RemoveLife( teamnum, amount )
 	if amount == nil then
 		amount = 1
@@ -243,7 +190,6 @@ function RemoveLife( teamnum, amount )
 	end
 end
 
-
 function GetHowManyLives( teamnum )
 	if teamnum == TEAM_BLUE then
 		return GetGlobalInt("Blue_Lives", 0)
@@ -251,13 +197,6 @@ function GetHowManyLives( teamnum )
 		return GetGlobalInt("Red_Lives", 0)
 	end
 end
-
-
-
-
-
-
-
 
 function SetWinningTeam( teamnum )
 	if teamnum == TEAM_BLUE then
@@ -277,11 +216,6 @@ function ResetWinningTeam()
 	SetGlobalInt("WinningTeam", 50)
 end
 
-
-
-
-
-
 function AddPoints( teamnum, amount )
 	if amount == nil then
 		amount = 1
@@ -300,9 +234,6 @@ function GetPoints( teamnum )
 	return team.GetScore( teamnum )
 end
 
-
-
-
 function SetMaxScore(num)
 	SetGlobalInt("MaxScore", num)
 end
@@ -310,9 +241,6 @@ end
 function GetMaxScore()
 	return GetGlobalInt("MaxScore", 0)
 end
-
-
-
 
 function ConvertToTeamName(num)
 	local printname = "Invalid Team"
@@ -330,9 +258,6 @@ function ConvertToTeamName(num)
 	return printname
 end
 
-
-
-
 function SetGamePhase(phase)
 	SetGlobalString("GamePhase", phase)
 end
@@ -341,20 +266,12 @@ function GetGamePhase()
 	return GetGlobalString("GamePhase")
 end
 
-
-
-
-
-
 --Random useful stuff for client and server, doesnt really have to do with game itself
 
 function RoundNum(num, idp)
   local mult = 10^(idp or 0)
   return math.floor(num * mult + 0.5) / mult
 end
-
-
-
 
 --creates a visual explosion at the position
 function VisualExplosion(pos, owner, flags)
@@ -369,8 +286,6 @@ function VisualExplosion(pos, owner, flags)
 	explosion:SetKeyValue("spawnflags",flags)
 	explosion:Fire( "Explode", 0, 0 )
 end
-
-
 
 --returns whether or not the ent is within the radius located at pos
 function GetIfInRange( pos, radius, ent )

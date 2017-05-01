@@ -1,14 +1,7 @@
 /*---------------------------------------------------------
 	ENT Meta Table
 ---------------------------------------------------------*/
-
 local TTGEnt = FindMetaTable("Entity")
-
-
-
-
-
-
 
 --returns true if the ent is on the ground (a specified height from it)
 function TTGEnt:GetIfOnGround( height, filter )
@@ -44,10 +37,6 @@ function TTGEnt:GetIfOnGround( height, filter )
 	return false
 end
 
-
-
-
-
 --methods so the client can know what team an ent is, set this if client needs it for some reason
 --this must be in meta ent
 function TTGEnt:SetEntTeamForClient( teamnum )
@@ -63,9 +52,6 @@ function TTGEnt:GetEntTeamForClient()
 	return self:GetNWInt( "IntTeam", 5 ) 
 end
 
-
-
-
 --doesnt work for some reason
 --[[
 function TTGEnt:GetEntTeam()
@@ -75,7 +61,6 @@ function TTGEnt:GetEntTeam()
 	return self.BBTeam
 end
 ]]--
-
 
 --returns whether or not this ent is a projectile
 function TTGEnt:IsProjectile()
@@ -88,12 +73,6 @@ function TTGEnt:IsProjectile()
 	end
 end
 
-
-
-
-
-
-
 function TTGEnt:SetGrabber( grabber )
 	self.Grabber = grabber
 end
@@ -103,13 +82,6 @@ function TTGEnt:GetGrabber()
 		return self.Grabber 
 	end
 end
-
-
-
-
-
-
-
 
 --this is set when the ent is grabbed, so 2 players cant grab the same ent at the same time
 function TTGEnt:SetIfBeingGrabbed( x )
@@ -128,9 +100,6 @@ function TTGEnt:GetIfBeingGrabbed()
 	return begrabbed
 end
 
-
-
-
 --sets whether or not players can grab this ent
 function TTGEnt:SetIfCanGrab( x )
 	local cando = true
@@ -148,10 +117,6 @@ function TTGEnt:GetIfCanGrab()
 	return cando
 end
 
-
-
-
-
 --uses "static" variable in the ent table
 function TTGEnt:GetIfStatic()
 	local ref = self:GetRef()
@@ -161,7 +126,6 @@ function TTGEnt:GetIfStatic()
 		return false
 	end
 end
-
 
 --returns whether or not the puck is in its teams fountain
 function TTGEnt:IsInFountain()
@@ -184,8 +148,6 @@ function TTGEnt:IsInFountain()
 	return false
 end
 
-
-
 --[[
 function TTGEnt:IsInNobuild()
 	for k,ent in pairs(ents.GetAll()) do
@@ -201,7 +163,6 @@ function TTGEnt:IsInNobuild()
 end
 ]]--
 
-
 --hurt the ent
 function TTGEnt:HurtEnt( amount, inflictor, attacker )
 	local dmginfo = DamageInfo()
@@ -211,7 +172,6 @@ function TTGEnt:HurtEnt( amount, inflictor, attacker )
 		dmginfo:SetAttacker( attacker )
 	self:TakeDamageInfo( dmginfo )
 end
-
 
 --gets the max hp of the puck or structure or ent
 function TTGEnt:GetMaxHP()
@@ -227,8 +187,6 @@ function TTGEnt:GetMaxHP()
 	end
 	return false
 end
-
-
 
 function TTGEnt:GetEnemyTeam()
 	if self:IsPlayer() then
@@ -246,7 +204,6 @@ function TTGEnt:GetEnemyTeam()
 	end
 end
 
-
 --Checks if the ent is a player OR a vehicle
 function TTGEnt:IsValidPuck()
 	if self:GetClass() == "structure_blimp" or self:GetClass() == "structure_boat" or self:GetClass() == "structure_chopper" 
@@ -259,15 +216,11 @@ function TTGEnt:IsValidPuck()
 	return true
 end
 
-
-
 --Checks if the ent is a player whos alive playing the game currently
 function TTGEnt:IsValidPlyBug()
 	if not CheckIfInPuckTable( self ) then return false end
 	return true
 end
-
-
 
 --Checks if the ent is a a vehicle
 function TTGEnt:IsValidVehicle()
@@ -278,9 +231,6 @@ function TTGEnt:IsValidVehicle()
 	end
 	return false
 end
-
-
-
 
 --takes a table of strings naming types of pucks to check for
 --checks if this puck is in the table of pucks
@@ -306,8 +256,6 @@ function TTGEnt:NoCollideTeam()
 	end
 end
 
-
-
 function TTGEnt:NoCollideSlider()
 	for k,ent in pairs(ents.GetAll()) do
 		if ent:GetClass() == "subitem_slider" then
@@ -315,7 +263,6 @@ function TTGEnt:NoCollideSlider()
 		end
 	end
 end
-
 
 --[[
 --sets the ent to not collide with its own team
@@ -328,16 +275,10 @@ function TTGEnt:NoCollideGibs()
 end
 ]]--
 
-
-
 --sets the ent to not collide with an ent
 function TTGEnt:NoCollideEnt( ent )
 	constraint.NoCollide( self, ent, 0, 0 )
 end
-
-
-
-
 
 --Gets what team the ent is on, doesnt matter if its a player or entity
 --SERVER only
@@ -349,8 +290,6 @@ function TTGEnt:GetTeam()
 	end
 	print("error, ent has no team")
 end
-
-
 
 --takes a direction, a horizontal force and an optional vertical force
 --pushes the ent in that direction
@@ -394,11 +333,6 @@ function TTGEnt:Knockback( dir, horforce, vertforce )
 	end
 end
 
-
-
-
-
-
 --Used by barrier
 function TTGEnt:AddTeamBarrierNoCollide()
 	for k,ent in pairs(ents.GetAll()) do
@@ -407,7 +341,6 @@ function TTGEnt:AddTeamBarrierNoCollide()
 		end
 	end
 end
-
 
 --[[
 function TTGEnt:AddSpawnDoorNoCollide()
