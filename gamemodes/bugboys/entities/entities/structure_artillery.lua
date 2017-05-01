@@ -64,31 +64,40 @@ function ENT:Shoot( )
 		
 	-- Do not shoot if there's already many missiles floating around.
 	
-	if #ents.FindByClass(self.Ref.missile) > (1000 * engine.TickInterval()) then
+	if #ents.FindByClass(self.Ref.missile) > (1400 * engine.TickInterval()) then
 		return
 	end
 	
 	local newent = ents.Create( self.Ref.missile )
-		newent:SetPos( self:GetPos() + Vector(0, 0, self.Ref.height_gun) )
-		//newent:SetAngles( shoot_ang )
-		if IsValid( self.Creator ) then
-			newent.Creator = self.Creator
-		end
-		newent.BBTeam = self.BBTeam
-		newent:Spawn()
-		
-		constraint.NoCollide( self, newent, 0, 0 )
+	newent:SetPos( self:GetPos() + Vector(0, 0, self.Ref.height_gun) )
+	//newent:SetAngles( shoot_ang )
+	if IsValid( self.Creator ) then
+		newent.Creator = self.Creator
+	end
+	newent.BBTeam = self.BBTeam
+	newent:Spawn()
+	
+	-- This nocollide stuff really wastes entity edicts for some reason (tons of phys_constraintsystem)
+	-- Added a custom ShouldCollide instead, see below this function
+	--[[
+	constraint.NoCollide( self, newent, 0, 0 )
 	
 	//local vec = self:WorldToLocal( self.SentryTarget:GetPos())
 	//local vecnorm = vec:GetNormal()
-	
 	
 	--nocollide with all structure_artillery
 	for k,ent in pairs(ents.GetAll()) do
 		if ent.BBTeam == self.BBTeam and ent:GetClass() == "structure_artillery" then
 			constraint.NoCollide( newent, ent, 0, 0 )
 		end
+	end]]
+	for k,ent in pairs(ents.GetAll()) do
+		if ent:GetClass() == "structure_artillery" and ent.BBTeam == self.BBTeam then
+			ent:SetCustomCollisionCheck(true)
+		end
 	end
+	
+	newent:SetCustomCollisionCheck(true)
 	
 	
 
@@ -101,8 +110,7 @@ function ENT:Shoot( )
 	
 	//ent:GetPhysicsObject():SetVelocity( Vector( move_ang.x, move_ang.y, 0 ) * self.Ref.force_phys )
 	
-	
-	
+
 	
 	
 	
@@ -116,7 +124,14 @@ function ENT:Shoot( )
 	self:DoShootEffect(  )
 end
 
-
+hook.Add("ShouldCollide", "ArtilleryShouldCollide", function(e1, e2)
+	
+	if (e1:GetClass() == "structure_artillery" and e2:GetClass() == "subitem_artillerymissile") or (e1:GetClass() == "subitem_artillerymissile" and e2:GetClass() == "structure_artillery") then
+		if e1.BBTeam == e2.BBTeam then
+			return false
+		end
+	end
+end)
 
 --do a trace on the ent, return true if target still in sight and range
 function ENT:CheckTargetTrace()
@@ -156,7 +171,6 @@ end
 
 
 function ENT:Think()
-self.Ref.fire_rate = 0.1
 	local orgin_ents = ents.FindInSphere( self:GetPos(), self.Ref.radius )
 	
 	if self.SentryMode == "search" then
