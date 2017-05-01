@@ -281,12 +281,16 @@ function VisualExplosion(pos, owner, flags)
 		flags = 81
 	end
 
-	local explosion = ents.Create( "env_explosion" )
+	--[[local explosion = ents.Create( "env_explosion" )
 	explosion:SetPos( pos )
 	explosion:SetOwner( owner )
 	explosion:Spawn()
 	explosion:SetKeyValue("spawnflags",flags)
-	explosion:Fire( "Explode", 0, 0 )
+	explosion:Fire( "Explode", 0, 0 )]]
+		--this explosion is just visual
+	local effectdata = EffectData()
+	effectdata:SetOrigin( pos )
+	util.Effect( "HelicopterMegaBomb", effectdata )
 end
 
 --returns whether or not the ent is within the radius located at pos

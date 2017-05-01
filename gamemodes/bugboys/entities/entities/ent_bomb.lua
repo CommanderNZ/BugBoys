@@ -70,13 +70,16 @@ function ENT:StartEffect(  )
 	
 	
 	--this explosion is just visual
-	local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
+	--[[local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
 		explosion:SetPos( self:GetPos() )
 		explosion:SetOwner( self.HitPostion )
 		explosion:Spawn()
 		explosion:SetKeyValue("spawnflags","349")
-		explosion:Fire( "Explode", 0, 0 )
-	
+		explosion:Fire( "Explode", 0, 0 )]]
+	--this explosion is just visual
+	local effectdata = EffectData()
+	effectdata:SetOrigin( self:GetPos() )
+	util.Effect( "HelicopterMegaBomb", effectdata )
 	
 	
 	--deal damage to an ent

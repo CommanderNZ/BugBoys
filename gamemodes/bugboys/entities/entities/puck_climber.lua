@@ -379,12 +379,16 @@ function ENT:PhysicsCollide(Data, PhysObj)
 			self.Owner:BBChatPrint( dmg )
 			
 			--this explosion is just visual
-			local explosion = ents.Create( "env_explosion" )
+			--[[local explosion = ents.Create( "env_explosion" )
 				explosion:SetPos( self:GetPos() )
 				explosion:SetOwner( self.Owner )
 				explosion:Spawn()
 				explosion:SetKeyValue("spawnflags","81")
-				explosion:Fire( "Explode", 0, 0 )
+				explosion:Fire( "Explode", 0, 0 )]]
+				--this explosion is just visual
+	local effectdata = EffectData()
+		effectdata:SetOrigin( self:GetPos() )
+		util.Effect( "HelicopterMegaBomb", effectdata )
 			
 			
 			--deal flat damage to an ent in the radius
