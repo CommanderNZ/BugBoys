@@ -61,6 +61,12 @@ function ENT:Shoot( )
 	
 	//bullet.Src 		= self:GetPos() + Vector(0, 0, self.Ref.height_gun)	// Source
 	//bullet.Dir 		= shoot_ang	// Dir of bullet
+		
+	-- Do not shoot if there's already many missiles floating around.
+	print(#ents.FindByClass(self.Ref.missile), (1000 * engine.TickInterval()))
+	if #ents.FindByClass(self.Ref.missile) > (1000 * engine.TickInterval()) then
+		return
+	end
 	
 	local newent = ents.Create( self.Ref.missile )
 		newent:SetPos( self:GetPos() + Vector(0, 0, self.Ref.height_gun) )
@@ -150,6 +156,7 @@ end
 
 
 function ENT:Think()
+self.Ref.fire_rate = 0.1
 	local orgin_ents = ents.FindInSphere( self:GetPos(), self.Ref.radius )
 	
 	if self.SentryMode == "search" then
@@ -185,11 +192,17 @@ function ENT:Think()
 					
 					self.SentryMode = "shoot"
 					self.SentryTarget = ent
+					
 					break
 				end
 			end
 		end
 		self:NextThink( CurTime() + self.Ref.fire_rate )
+		
+		if self.SentryMode == "shoot" then
+			self:NextThink( CurTime() + self.Ref.fire_rate + math.Rand(0, 1) ) -- Some slight variation so 1000 seigers don't spawn a missile at the same time
+		end
+		
 		return true
 		
 		

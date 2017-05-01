@@ -64,7 +64,11 @@ function ENT:Shoot( )
 		self.SentryTarget = nil
 		return
 	end
-
+	
+	-- Do not shoot if there's already many missiles floating around.
+	if #ents.FindByClass(self.Ref.missile) > (500 * engine.TickInterval()) then
+		return
+	end
 	
 	local obj = ents.Create( self.Ref.ent_shoot )
 
