@@ -85,7 +85,6 @@ on_zap_description = "Temporarily disable",
 }
 ,
 
---[[
 craft_token =
 {	
 name = "craft_token",
@@ -98,7 +97,6 @@ no_team = true,
 description = "1 unit of token currency in physical form",
 }
 ,
-]]--
 
 --[[
 craft_bomb =

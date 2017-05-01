@@ -68,6 +68,8 @@ function ENT:Think()
 	for k, ent in pairs( orgin_ents ) do
 		if ent:IsValidPlyBug() then
 			self:StartEffect( ent.Owner )
+
+			break -- Avoid giving the token to another bug once we found a valid one
 		end
 	end
 	
