@@ -134,8 +134,8 @@ function ENT:Think()
 			local Aimxy = Vector(Aim.x,Aim.y,0)
 			local addforce = (Aimxy * force_add)
 			
-			//MelonPhysObj:ApplyForceCenter( addforce + inertia )
-			MelonPhysObj:ApplyForceCenter( addforce )
+			//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  addforce + inertia )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  addforce )
 			
 			input_thisframe = true
 		end
@@ -143,21 +143,21 @@ function ENT:Think()
 		if (ply:KeyDown(IN_BACK)) then
 			local Aim = Aim:Forward() * -1
 				Aim = Vector(Aim.x,Aim.y,0)
-			MelonPhysObj:ApplyForceCenter( Aim * force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force_add )
 			
 			input_thisframe = true
 		end
 		
 		if (ply:KeyDown(IN_MOVELEFT)) then
 			local Aim = Aim:Right() * -1
-			MelonPhysObj:ApplyForceCenter( Aim * force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force_add )
 
 			input_thisframe = true
 		end
 		
 		if (ply:KeyDown(IN_MOVERIGHT)) then
 			local Aim = Aim:Right()
-			MelonPhysObj:ApplyForceCenter( Aim * force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force_add )
 			
 			input_thisframe = true
 		end
@@ -191,7 +191,7 @@ function ENT:Think()
 	--Decay velocity to lessen momentum if theres no input being held
 	if input_thisframe == false then
 		if speed >= 1 then
-			MelonPhysObj:ApplyForceCenter( -velonorm * 1000 )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -velonorm * 1000 )
 		end
 	end
 	
@@ -204,7 +204,7 @@ function ENT:Think()
 		//local neg_vec = -(veloxy - (normalized_velo))
 		local neg_vec = -veloxy
 		
-		MelonPhysObj:ApplyForceCenter( neg_vec * 50 )
+		MelonPhysObj:ApplyForceCenter(  neg_vec * 50 )
 	end
 	
 	

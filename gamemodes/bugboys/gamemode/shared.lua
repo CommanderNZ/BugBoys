@@ -5,6 +5,8 @@ GM.Website = ""
 
 CAN_NOCLIP = false
 
+TICK_FORCE_MULTIPLIER = (66 * engine.TickInterval() )
+
 --gets returns vec position with Z modified so its on the ground
 function ToGround( vec, filter )
 	local pos = vec

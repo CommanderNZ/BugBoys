@@ -92,7 +92,7 @@ end
 function ENT:Think()
 	--high gravity for the climber version
 	if self.Ref.version == "climber" then
-		self:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, -self.Ref.gravity_force ) )
+		self:GetPhysicsObject():ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector( 0, 0, -self.Ref.gravity_force ) )
 	
 		//self:NextThink( CurTime() + self.Ref.think_rate )
 		//return true

@@ -134,7 +134,7 @@ function ENT:Think()
 				forcepos = self:GetPos() + (ang * 400)
 			
 			local phys = self:GetPhysicsObject()
-				phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+				phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			
 			
 			input_thisframe = true
@@ -148,7 +148,7 @@ function ENT:Think()
 				forcepos = self:GetPos() - (ang * 400)
 			
 			local phys = self:GetPhysicsObject()
-				phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+				phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 				
 			input_thisframe = true
 			turning = true
@@ -163,7 +163,7 @@ function ENT:Think()
 				forcepos = self:GetPos() - (ang * 400)
 			
 			local phys = self:GetPhysicsObject()
-				phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+				phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			
 			input_thisframe = true
 			turning = true
@@ -178,7 +178,7 @@ function ENT:Think()
 				forcepos = self:GetPos() - (ang * 400)
 			
 			local phys = self:GetPhysicsObject()
-				phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+				phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			
 			input_thisframe = true
 			turning = true
@@ -199,12 +199,12 @@ function ENT:Think()
 			local finalang = newang:Right() * upsidedown
 			
 			--forward motion
-			MelonPhysObj:ApplyForceCenter( finalang * 1900 ) --2000
-			//MelonPhysObj:ApplyForceCenter( finalang * 2000 ) --2000
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  finalang * 1900 ) --2000
+			//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  finalang * 2000 ) --2000
 			
 			--up motion
-			MelonPhysObj:ApplyForceCenter( Vector(0,0,3000) ) --2900
-			//MelonPhysObj:ApplyForceCenter( Vector(0,0,8000) ) --2900
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector(0,0,3000) ) --2900
+			//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector(0,0,8000) ) --2900
 			input_thisframe = true
 		end
 		
@@ -243,9 +243,9 @@ function ENT:Think()
 	if input_thisframe == false then
 		if speed >= 1 then
 			if self:PuckTable_HasPucks() == true then
-				//MelonPhysObj:ApplyForceCenter( -velonorm * 5 )
+				//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -velonorm * 5 )
 			else
-				MelonPhysObj:ApplyForceCenter( -velonorm * 1000 )
+				MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -velonorm * 1000 )
 			end
 		end
 	end
@@ -266,7 +266,7 @@ function ENT:Think()
 		//local neg_vec = -veloxy
 		local neg_vec = -velo
 		
-		MelonPhysObj:ApplyForceCenter( neg_vec * 50 )
+		MelonPhysObj:ApplyForceCenter(  neg_vec * 50 )
 	end
 	]]--
 	
@@ -303,7 +303,7 @@ function ENT:Think()
 	--if no one is on the blimp, add force downward
 	if self:PuckTable_HasPucks() != true then
 		local Down = Vector(0,0,-1)
-		MelonPhysObj:ApplyForceCenter( Down * 2000 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Down * 2000 )
 		
 		if self.LoopingSound_A != nil then
 			self.LoopingSound_A:Stop()

@@ -153,7 +153,7 @@ function ENT:Think()
 		shoot_ang:Rotate( rot )
 	
 		//local phys = self.SentryTarget:GetPhysicsObject()
-			//phys:ApplyForceCenter (shoot_ang *  self.Ref.force_chase)
+			//phys:ApplyForceCenter( TICK_FORCE_MULTIPLIER * shoot_ang *  self.Ref.force_chase)
 			
 		local phys = self:GetPhysicsObject()
 			phys:SetVelocity ((shoot_ang + Vector(0,0,.5)) *  self.ChaseSpeed )

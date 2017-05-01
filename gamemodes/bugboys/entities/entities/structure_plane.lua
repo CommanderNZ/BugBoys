@@ -159,7 +159,7 @@ function ENT:Think()
 				forcepos = self:GetPos() - (ang * 400)
 			
 			local phys = self:GetPhysicsObject()
-				phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+				phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			]]--
 			local vec = Vector(0,0,30)
 			
@@ -187,7 +187,7 @@ function ENT:Think()
 					forcepos = self:GetPos() - (ang * 400)
 				
 				local phys = self:GetPhysicsObject()
-					phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+					phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			end
 			
 			input_thisframe = true
@@ -210,7 +210,7 @@ function ENT:Think()
 					forcepos = self:GetPos() - (ang * 400)
 				
 				local phys = self:GetPhysicsObject()
-					phys:ApplyForceOffset( Vector(0,0,-50) , forcepos )
+					phys:ApplyForceOffset( TICK_FORCE_MULTIPLIER *  Vector(0,0,-50) , forcepos )
 			end
 			
 			input_thisframe = true
@@ -239,7 +239,7 @@ function ENT:Think()
 		if (ply:KeyDown(IN_DUCK)) then
 			local Aim = -Aim:Up()
 				Aim = Vector(0,0,Aim.z)
-			MelonPhysObj:ApplyForceCenter( Aim * self.Ref.force_add_vertical )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * self.Ref.force_add_vertical )
 
 			input_thisframe = true
 		end
@@ -300,10 +300,10 @@ function ENT:Think()
 		local finalang = newang:Right() * upsidedown
 		
 		--angular force, what up is to the airplane
-		MelonPhysObj:ApplyForceCenter( finalang * (speed * 6) )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  finalang * (speed * 6) )
 		
 		--upward force
-		MelonPhysObj:ApplyForceCenter( Vector(0,0,speed * 6) )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector(0,0,speed * 6) )
 	end
 	--
 	
@@ -358,7 +358,7 @@ function ENT:Think()
 	--if no one is on the blimp, add force downward
 	if self:PuckTable_HasPucks() != true then
 		local Down = Vector(0,0,-1)
-		MelonPhysObj:ApplyForceCenter( Down * 50000 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Down * 2000 )
 			if self.ForwardVelocity > 0 then
 				self.ForwardVelocity = self.ForwardVelocity - 1
 			end

@@ -89,10 +89,10 @@ function ENT:Think()
 		shoot_ang:Rotate( rot )
 	
 		//local phys = self.SentryTarget:GetPhysicsObject()
-			//phys:ApplyForceCenter (shoot_ang *  self.Ref.force_chase)
+			//phys:ApplyForceCenter( TICK_FORCE_MULTIPLIER * shoot_ang *  self.Ref.force_chase)
 			
 		local phys = self:GetPhysicsObject()
-			phys:ApplyForceCenter (shoot_ang *  self.Ref.force_chase)
+			phys:ApplyForceCenter( TICK_FORCE_MULTIPLIER * shoot_ang *  self.Ref.force_chase)
 	else
 		self.SentryTarget = nil
 		self.SentryMode = "search"
