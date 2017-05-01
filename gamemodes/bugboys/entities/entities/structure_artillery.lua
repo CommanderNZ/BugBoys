@@ -63,7 +63,7 @@ function ENT:Shoot( )
 	//bullet.Dir 		= shoot_ang	// Dir of bullet
 		
 	-- Do not shoot if there's already many missiles floating around.
-	print(#ents.FindByClass(self.Ref.missile), (1000 * engine.TickInterval()))
+	
 	if #ents.FindByClass(self.Ref.missile) > (1000 * engine.TickInterval()) then
 		return
 	end
