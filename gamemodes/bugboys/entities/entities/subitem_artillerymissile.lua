@@ -14,6 +14,7 @@ if !SERVER then return end
 function ENT:Initialize()
 	//self.Ref = self:GetRef()
 	self:SpecialInit()
+	self.SpawnTime = CurTime()
 	
 	self:ChangePhysicsModel( self.Ref.model, COLLISION_GROUP_WEAPON, self.Ref.mass )
 	
@@ -25,6 +26,12 @@ function ENT:Initialize()
 		ParticleEffectAttach("rockettrail",PATTACH_ABSORIGIN_FOLLOW,self,0)
 	end)
 	]]--
+end
+
+function ENT:Think()
+	if CurTime() - self.SpawnTime >= 10 then
+		self:Remove()
+	end
 end
 
 
