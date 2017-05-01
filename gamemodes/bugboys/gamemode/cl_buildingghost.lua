@@ -2,14 +2,11 @@
 	Ghost that shows when the player is about to build a structure
 ---------------------------------------------------------*/
 
-local CL_ShowingGhost = false
 local Ghost = nil
-local Ghost_Prev = nil
-local Ghost_Prev_Ang = nil
 local Ghost_In_Wall = false
 local Sphere = nil
-local Build_Cooldown = 0
 
+print(CurTime())
 function BuildingGhost()
 	if LocalPlayer():Team() == TEAM_SPEC then return end
 	
@@ -20,14 +17,23 @@ function BuildingGhost()
 	local craft = Ply:GetCraft()
 	local craftref = TableReference_Craft( craft )
 	local entref = EntReference( craftref.ent )
-	
-	
-	local function StopShowing()
+
+	local function StopShowing(delay)
 		if IsValid( Ghost ) then
-			Ghost_Prev = Ghost:GetPos()
-			Ghost_Prev_Ang = Ghost:GetAngles()
-			
-			Ghost:Remove()
+			if delay then
+				-- Write ghost to a temp variable that's used in the timer
+				local ghostTmp = Ghost
+				
+				-- Create the removal timer
+				timer.Simple(delay, function()
+					ghostTmp:Remove()
+				end)
+				
+				-- Wipe our real ghost variable so we can reuse it
+				Ghost = nil
+			else
+				Ghost:Remove()
+			end
 		end
 		if IsValid( Sphere ) then
 			Sphere:Remove()
@@ -91,7 +97,7 @@ function BuildingGhost()
 		--for the structures that have a center position at their feet, like sentries
 		--this pos needs to be raised up to detect if in wall
 		local pos_override = nil
-		if DoTraceTo( Vector(0,0,-1) ) == true then
+		if DoTraceTo( Vector(0,0,-1) ) then
 			pos_override = ent:GetPos() + (Vector(0,0,1) * dist)
 		end
 		
@@ -112,29 +118,28 @@ function BuildingGhost()
 	end
 	
 
-	if (Ply:KeyDown(IN_SPEED)) then
-
+	if Ply:KeyDown(IN_SPEED) then
 		--create the ent if its not already showing
-		if CL_ShowingGhost == false then
+		if not IsValid(Ghost) then
 			Ghost = ents.CreateClientProp()
-				Ghost:SetPos( Ply:GetPos() + Vector(0,0,craftref.spawn_height) )
-				Ghost:SetModel( entref.model )
-				Ghost:Spawn()
-				if Ply:Team() == TEAM_RED then
-					//Ghost:SetMaterial( "models/props_combine/tprings_globe" )
-					//Ghost:SetMaterial( "bugboys/ghost_red" )
-					Ghost:SetMaterial( "bugboys/sphere_red" )
-				else
-					//Ghost:SetMaterial( "models/props_combine/stasisshield_sheet" )
-					//Ghost:SetMaterial( "bugboys/ghost_blue" )
-					Ghost:SetMaterial( "bugboys/sphere_blue" )
-				end
-				if craftref.special_ang != nil then
-					Ghost:SetAngles( craftref.special_ang )
-				end
+			Ghost:SetPos( Ply:GetPos() + Vector(0,0,craftref.spawn_height) )
+			Ghost:SetModel( entref.model )
+			Ghost:Spawn()
+			if Ply:Team() == TEAM_RED then
+				//Ghost:SetMaterial( "models/props_combine/tprings_globe" )
+				//Ghost:SetMaterial( "bugboys/ghost_red" )
+				Ghost:SetMaterial( "bugboys/sphere_red" )
+			else
+				//Ghost:SetMaterial( "models/props_combine/stasisshield_sheet" )
+				//Ghost:SetMaterial( "bugboys/ghost_blue" )
+				Ghost:SetMaterial( "bugboys/sphere_blue" )
+			end
+			if craftref.special_ang != nil then
+				Ghost:SetAngles( craftref.special_ang )
+			end
 				
 			--create a giant sphere surrounding the ent to show its radius of effect
-			if entref.display_radius_sphere == true then
+			if entref.display_radius_sphere then
 				local scale = entref.radius * .02
 			
 				Sphere = ents.CreateClientProp()
@@ -148,8 +153,7 @@ function BuildingGhost()
 				Sphere:Spawn()
 				Sphere:SetModelScale( scale, 0 )
 			end
-			
-			CL_ShowingGhost = true
+		
 		end
 		
 		
@@ -215,7 +219,7 @@ function BuildingGhost()
 		
 		
 		--update the angles if this ent builds with a specified angle
-		if craftref.sets_angles == true and (Trace.HitWorld and normalz > .8) or (Trace.HitNonWorld and hitent:GetClass() == "structure_wall" and normalz > .8) then
+		if craftref.sets_angles and (Trace.HitWorld and normalz > .8) or (Trace.HitNonWorld and hitent:GetClass() == "structure_wall" and normalz > .8) then
 			local closest = GetClosestAng()
 			local setnum = nil
 			for _, thing in pairs( ang_tbl ) do
@@ -303,7 +307,7 @@ function BuildingGhost()
 
 		--cant build it into walls
 		Ghost_In_Wall = false
-		if craftref.cant_into_walls == true and CheckIfInWall( Ghost, craftref.cant_into_walls_dist ) then
+		if craftref.cant_into_walls and CheckIfInWall( Ghost, craftref.cant_into_walls_dist ) then
 			itsok = false
 			Ghost_In_Wall = true
 		end
@@ -314,24 +318,15 @@ function BuildingGhost()
 		end
 	
 		
-		if itsok != true then
+		if not itsok then
 			StopShowing()
+			
+			return
 		end
-		
-		
-	--if they arent even holding shift then stop showing
-	else
-		StopShowing()
-		
-		
-		
 	end
-
-
 	
-	if Ply:KeyReleased( IN_SPEED ) and Build_Cooldown < CurTime() then 
-		Build_Cooldown = CurTime() + .05
 	
+	if Ply:KeyReleased(IN_SPEED) and IsValid(Ghost) then
 		--do a trace where the player is looking
 		local trstart = Ply.FakePos
 		local Trace = {}
@@ -371,7 +366,7 @@ function BuildingGhost()
 		end
 		
 		
-		if Ghost_In_Wall == true then
+		if Ghost_In_Wall then
 			itsok = false
 		end
 		
@@ -381,10 +376,13 @@ function BuildingGhost()
 		end
 		
 		
-		if itsok == true then
+		if itsok then
+			local Ghost_Prev = Ghost:GetPos()
+			local Ghost_Prev_Ang = Ghost:GetAngles()
+			
 			local location = Ghost_Prev - Vector(0,0,craftref.spawn_height)
 
-			if craftref.sets_angles != true then
+			if not craftref.sets_angles then
 				RunConsoleCommand( "bb_craft", tostring(location.x), tostring(location.y), tostring(location.z)  )
 			else
 				RunConsoleCommand( "bb_craft", tostring(location.x), tostring(location.y), tostring(location.z), Ghost_Prev_Ang )
@@ -393,7 +391,9 @@ function BuildingGhost()
 			//Ply:BBChatPrint( "Building" )
 			//surface.PlaySound( "hl1/fvox/bell.wav" )
 		end
+		
+		StopShowing((LocalPlayer():Ping() / 1000) + engine.TickInterval()) -- Delay with ping and duration of 1 tick, so that there's a ghost until the server receives it
 	end
-
+	
 end
 hook.Add("Think", "BuildingGhost", BuildingGhost)
