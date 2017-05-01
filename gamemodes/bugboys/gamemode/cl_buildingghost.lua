@@ -6,7 +6,6 @@ local Ghost = nil
 local Ghost_In_Wall = false
 local Sphere = nil
 
-print(CurTime())
 function BuildingGhost()
 	if LocalPlayer():Team() == TEAM_SPEC then return end
 	
