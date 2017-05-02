@@ -109,7 +109,7 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_FORWARD)) then
 			local Aim = Aim:Forward()
 				Aim = Vector(Aim.x,Aim.y,0)
-			MelonPhysObj:ApplyForceCenter(Aim * self.Ref.force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER * Aim * self.Ref.force_add )
 
 			input_thisframe = true
 		end
@@ -117,21 +117,21 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_BACK)) then
 			local Aim = Aim:Forward() * -1
 				Aim = Vector(Aim.x,Aim.y,0)
-			MelonPhysObj:ApplyForceCenter( Aim * self.Ref.force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * self.Ref.force_add )
 			
 			input_thisframe = true
 		end
 		
 		if (Owner:KeyDown(IN_MOVELEFT)) then
 			local Aim = Aim:Right() * -1
-			MelonPhysObj:ApplyForceCenter( Aim * self.Ref.force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * self.Ref.force_add )
 			
 			input_thisframe = true
 		end
 		
 		if (Owner:KeyDown(IN_MOVERIGHT)) then
 			local Aim = Aim:Right()
-			MelonPhysObj:ApplyForceCenter( Aim * self.Ref.force_add )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * self.Ref.force_add )
 			
 			input_thisframe = true
 		end
@@ -155,7 +155,7 @@ function ENT:Think()
 	--Decay velocity to lessen momentum if theres no input being held
 	if input_thisframe == false then
 		if speed >= 1 then
-			MelonPhysObj:ApplyForceCenter( -Vector(velo.x,velo.y,0)*7 )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -Vector(velo.x,velo.y,0)*7 )
 		end
 	end
 	
@@ -164,7 +164,7 @@ function ENT:Think()
 		local normalized_velo = veloxy:GetNormal()
 		local neg_vec = -(veloxy - (normalized_velo * 50))
 
-		MelonPhysObj:ApplyForceCenter( neg_vec * 10 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  neg_vec * 10 )
 	end
 	
 	
@@ -196,7 +196,7 @@ function ENT:Think()
 			
 			
 			force = (self.Jetpack_TargetSpeed - vert_speed) * 16
-			MelonPhysObj:ApplyForceCenter( Up * force )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Up * force )
 			
 			//Owner:PrintMessage( HUD_PRINTCENTER, force )
 			//Owner:PrintMessage( HUD_PRINTCENTER, tostring(vert_speed) )
@@ -241,7 +241,7 @@ function ENT:Think()
 	//Owner:PrintMessage( HUD_PRINTCENTER, self.JetpackOnTime )
 	if vert_speed > max_speed_vert and veloz.z > 0 and flying_input == true then
 		local neg_vec = -veloz
-		MelonPhysObj:ApplyForceCenter( neg_vec * 70 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  neg_vec * 70 )
 		
 		//self.JetpackOnTime = self.JetpackOnTime + 1
 	end

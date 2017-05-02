@@ -43,12 +43,16 @@ end
 --does the affect at the pos position
 function ENT:StartEffect( hitent )
 	--this explosion is just visual
-	local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
+	--[[local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
 		explosion:SetPos( self:GetPos() )
 		explosion:SetOwner( self.Owner )
 		explosion:Spawn()
 		explosion:SetKeyValue("spawnflags","81")
-		explosion:Fire( "Explode", 0, 0 )
+		explosion:Fire( "Explode", 0, 0 )]]
+		--this explosion is just visual
+	local effectdata = EffectData()
+	effectdata:SetOrigin( self:GetPos() )
+	util.Effect( "HelicopterMegaBomb", effectdata )
 	
 	--deal flat damage to an ent in the radius
 	local function HurtEnt( ent )
@@ -92,7 +96,7 @@ end
 function ENT:Think()
 	--high gravity for the climber version
 	if self.Ref.version == "climber" then
-		self:GetPhysicsObject():ApplyForceCenter( Vector( 0, 0, -self.Ref.gravity_force ) )
+		self:GetPhysicsObject():ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector( 0, 0, -self.Ref.gravity_force ) )
 	
 		//self:NextThink( CurTime() + self.Ref.think_rate )
 		//return true

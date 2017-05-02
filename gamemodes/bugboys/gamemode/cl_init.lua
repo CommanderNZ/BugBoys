@@ -374,7 +374,7 @@ function hud()
 
 	if Ply:Team() != TEAM_SPEC then
 		draw.RoundedBox(0, 0, ScrH()-35, 150, 35, Color(50,50,50,255))	
-		draw.SimpleText("Tokens:", "Trebuchet18", 40, ScrH() - 30, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+		draw.SimpleText("Tokens:", "Trebuchet18", 40, ScrH() - 30, team_color, TEXT_ALIGN_CENTER) 
 		
 		local tokens = Ply:GetTokens()
 		draw.SimpleText( tokens, "DermaLarge", 80, ScrH() - 32, Color(200,150,255,255)) 
@@ -725,12 +725,17 @@ function hud()
 	local Puck = Ply:GetNetPuck()
 	local Puckref = Puck:GetRef()	
 	
+	if LocalPlayer():Team() == TEAM_RED then
+		team_color = Color(239,69,82,255)
+	elseif LocalPlayer():Team() == TEAM_BLUE then
+		team_color = Color(97,187,211,255)
+	end	
 	
 	---------------------------------------------------------*/	
 	--E key hud display
 	draw.RoundedBox(0, 0, ScrH()-200, 85, 45, Color(50,50,50,255))			--background box
 	draw.RoundedBox(0, 85, ScrH()-195, 190, 35, Color(50,50,50,180))			--2nd background box
-	draw.SimpleText("'E'", "Trebuchet18", 40, ScrH() - 195, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+	draw.SimpleText("'USE KEY'", "Trebuchet18", 40, ScrH() - 195, team_color, TEXT_ALIGN_CENTER) 
 
 	local e_text = "Grab"
 	if Puckref.override_e != nil then
@@ -744,7 +749,7 @@ function hud()
 	--Shift key hud display
 	draw.RoundedBox(0, 0, ScrH()-150, 85, 45, Color(50,50,50,255))			--background box
 	draw.RoundedBox(0, 85, ScrH()-145, 190, 35, Color(50,50,50,180))			--2nd background box
-	draw.SimpleText("'SHIFT'", "Trebuchet18", 40, ScrH() - 145, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+	draw.SimpleText("'RUN KEY'", "Trebuchet18", 40, ScrH() - 145, team_color, TEXT_ALIGN_CENTER) 
 	
 	local shift_text = "Construct"
 	if Puckref.override_shift != nil then
@@ -767,7 +772,7 @@ function hud()
 	--Ctrl key hud display
 	draw.RoundedBox(0, 0, ScrH()-100, 85, 45, Color(50,50,50,255))			--background box
 	draw.RoundedBox(0, 85, ScrH()-95, 190, 35, Color(50,50,50,180))			--2nd background box
-	draw.SimpleText("'CTRL'", "Trebuchet18", 40, ScrH() - 95, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+	draw.SimpleText("'DUCK KEY'", "Trebuchet18", 40, ScrH() - 95, team_color, TEXT_ALIGN_CENTER) 
 	
 	local alt_text = "Zap"
 	if Puckref.override_alt != nil then
@@ -782,7 +787,7 @@ function hud()
 	if Puckref.override_ctrl_off != true then
 		draw.RoundedBox(0, 0, ScrH()-50, 85, 45, Color(50,50,50,255))			--background box
 		draw.RoundedBox(0, 85, ScrH()-45, 190, 35, Color(50,50,50,180))			--2nd background box
-		draw.SimpleText("'CTRL'", "Trebuchet18", 40, ScrH() - 45, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+		draw.SimpleText("'DUCK KEY'", "Trebuchet18", 40, ScrH() - 45, team_color, TEXT_ALIGN_CENTER) 
 		
 		local ctrl_text = "Fuse to Friend"
 		if Puckref.override_ctrl != nil then
@@ -847,7 +852,7 @@ function hud()
 		local primname = swepref.primary_print_name
 		draw.RoundedBox(0, ScrW()-85, ScrH()-235, 85, 45, Color(50,50,50,255))			--background box
 		draw.RoundedBox(0, ScrW()-275, ScrH()-230, 190, 35, Color(50,50,50,180))			--2nd background box
-		draw.SimpleText("'PRIMARY'", "Trebuchet18", ScrW()-40, ScrH() - 228, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+		draw.SimpleText("'PRIMARY'", "Trebuchet18", ScrW()-40, ScrH() - 228, team_color, TEXT_ALIGN_CENTER) 
 
 		
 		local AmmoPrimary = Ply:GetActiveWeapon( ):Clip1() 
@@ -872,7 +877,7 @@ function hud()
 		if secname != nil then
 			draw.RoundedBox(0, ScrW()-85, ScrH()-185, 85, 45, Color(50,50,50,255))			--background box
 			draw.RoundedBox(0, ScrW()-275, ScrH()-180, 190, 35, Color(50,50,50,180))			--2nd background box
-			draw.SimpleText("'SECONDARY'", "Trebuchet18", ScrW()-40, ScrH() - 178, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+			draw.SimpleText("'SECONDARY'", "Trebuchet18", ScrW()-40, ScrH() - 178, team_color, TEXT_ALIGN_CENTER) 
 
 			
 			local AmmoSecondary = Ply:GetActiveWeapon( ):Clip2() 
@@ -935,7 +940,7 @@ function hud()
 
 	if Ply:Team() != TEAM_SPEC then
 		draw.RoundedBox(0, 180, ScrH()-35, 125, 35, Color(50,50,50,255))	
-		draw.SimpleText("'Q' - Quick Menu", "Trebuchet18", 240, ScrH() - 30, Color(255,255,255,255), TEXT_ALIGN_CENTER) 
+		draw.SimpleText("'Q' - Quick Menu", "Trebuchet18", 240, ScrH() - 30, team_color, TEXT_ALIGN_CENTER) 
 	end	
 	
 	
@@ -1130,7 +1135,7 @@ function hud()
 	draw.RoundedBox(0, ScrW()-420, ScrH()-50, 420, 50, Color(20,20,20,255))			--background box
 	draw.RoundedBox(0, ScrW()-405, ScrH() - 15 - 20, 400, 25, health_color_bg) --background health bar
 	draw.RoundedBox(0, ScrW()-405, ScrH() - 15 - 20, healthratio*4, 25, health_color) --changing health bar
-	draw.SimpleText(health, "DermaLarge", ScrW()-405, ScrH() - 45, Color(255,255,255,255)) --health number text
+	draw.SimpleText(health, "DermaLarge", ScrW()-405, ScrH() - 38, Color(255,255,255,255)) --health number text
 	
 	
 	

@@ -63,7 +63,7 @@ function ENT:Think()
 			
 			local force = ( self.Force - vert_speed) * 16
 			local phys = ent:GetPhysicsObject()
-				phys:ApplyForceCenter( Vector(0,0,1) * force )
+				phys:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector(0,0,1) * force )
 		end
 	end
 	

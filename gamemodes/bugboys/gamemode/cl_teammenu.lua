@@ -2,6 +2,21 @@
 	Team joining window
 ---------------------------------------------------------]]--
 
+local blur = Material('pp/blurscreen')
+
+function draw_Blur(panel, amount) 
+	local x, y = panel:LocalToScreen( 0, 0 )
+	local scrW, scrH = ScrW(), ScrH()
+	surface.SetDrawColor( 255, 255, 255 )
+	surface.SetMaterial( blur )
+	for i = 1, 6 do
+		blur:SetFloat('$blur', (i / 6) * (amount ~= nil and amount or 6))
+		blur:Recompute()
+		render.UpdateScreenEffectTexture()
+		surface.DrawTexturedRect(x * -1, y * -1, scrW, scrH)
+	end
+end
+
 function ShowTeamMenu()
 	local ply = LocalPlayer()
 	local panel_width = 600
@@ -10,15 +25,16 @@ function ShowTeamMenu()
 	local DermaPanel = vgui.Create( "DFrame" )
 	DermaPanel:SetPos( (ScrW()/2)-panel_width/2, 350 )
 	DermaPanel:SetSize( panel_width, panel_height )
-	DermaPanel:SetTitle( "Choose a team" ) -- Name of Fram
+	DermaPanel:SetTitle( "CHOOSE A TEAM" ) -- Name of Fram
 	DermaPanel:SetVisible( true )
 	DermaPanel:SetDraggable( false ) --Can the player drag the frame /True/False
 	DermaPanel:ShowCloseButton( false ) --Show the X (Close button) /True/False
 	DermaPanel:SetDeleteOnClose(true)
+	DermaPanel.Paint = function( self, w, h )
+		draw_Blur( self, 5 )
+		draw.RoundedBox( 0, 0, 0, self:GetWide(), self:GetTall(), Color( 0, 0, 0, 220 ) )
+	end
 	--DermaPanel:MakePopup()
-
-
-
 
 	local RedColumn = vgui.Create("DListView")
 	RedColumn:SetParent(DermaPanel)
@@ -26,6 +42,12 @@ function ShowTeamMenu()
 	RedColumn:SetSize((panel_width/3)-25, panel_height-180)
 	RedColumn:SetMultiSelect(false)
 	RedColumn:AddColumn("Red Team") -- Add column
+	RedColumn.Paint = function()
+		surface.SetDrawColor( 255, 200, 200, 255 )
+		surface.DrawRect( 0, 0, RedColumn:GetWide(), RedColumn:GetTall() )
+		surface.SetDrawColor( 255, 0, 0, 255 )
+		surface.DrawOutlinedRect( 0, 0, RedColumn:GetWide(), RedColumn:GetTall() )
+	end
 	
 	local BlueColumn = vgui.Create("DListView")
 	BlueColumn:SetParent(DermaPanel)
@@ -33,7 +55,12 @@ function ShowTeamMenu()
 	BlueColumn:SetSize((panel_width/3)-25, panel_height-180)
 	BlueColumn:SetMultiSelect(false)
 	BlueColumn:AddColumn("Blue Team") -- Add column
-	
+	BlueColumn.Paint = function()
+		surface.SetDrawColor( 200, 200, 255, 255 )
+		surface.DrawRect( 0, 0, BlueColumn:GetWide(), BlueColumn:GetTall() )
+		surface.SetDrawColor( 0, 0, 255, 255 )
+		surface.DrawOutlinedRect( 0, 0, BlueColumn:GetWide(), BlueColumn:GetTall() )
+	end
 	
 	local phase = GetGamePhase()
 	if phase == "NoPlayers" or phase == "PreGame" or phase == "EndGame" then
@@ -44,11 +71,18 @@ function ShowTeamMenu()
 	end
 	
 	local SpecColumn = vgui.Create("DListView")
+
 	SpecColumn:SetParent(DermaPanel)
 	SpecColumn:SetPos((panel_width/3) + 25, 125)
 	SpecColumn:SetSize((panel_width/3)-50, panel_height-180)
 	SpecColumn:SetMultiSelect(false)
 	SpecColumn:AddColumn("Spectators")
+	SpecColumn.Paint = function()
+		surface.SetDrawColor( 200, 200, 200, 255 )
+		surface.DrawRect( 0, 0, SpecColumn:GetWide(), SpecColumn:GetTall() )
+		surface.SetDrawColor( 255, 255, 255, 255 )
+		surface.DrawOutlinedRect( 0, 0, SpecColumn:GetWide(), SpecColumn:GetTall() )
+	end
 	--SpecColumn:AddColumn("Ready?")
 	
 	

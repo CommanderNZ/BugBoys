@@ -14,6 +14,7 @@ if !SERVER then return end
 function ENT:Initialize()
 	//self.Ref = self:GetRef()
 	self:SpecialInit()
+	self.SpawnTime = CurTime()
 	
 	self:ChangePhysicsModel( self.Ref.model, COLLISION_GROUP_WEAPON, self.Ref.mass )
 	
@@ -25,6 +26,12 @@ function ENT:Initialize()
 		ParticleEffectAttach("rockettrail",PATTACH_ABSORIGIN_FOLLOW,self,0)
 	end)
 	]]--
+end
+
+function ENT:Think()
+	if CurTime() - self.SpawnTime >= 10 then
+		self:Remove()
+	end
 end
 
 
@@ -44,12 +51,16 @@ end
 --does the affect at the pos position
 function ENT:StartEffect( hitent )
 	--this explosion is just visual
-	local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
+	--[[local explosion = ents.Create( "env_explosion" )		--/create an explosion and delete the prop
 		explosion:SetPos( self:GetPos() )
 		explosion:SetOwner( self.Owner )
 		explosion:Spawn()
 		explosion:SetKeyValue("spawnflags","81")
-		explosion:Fire( "Explode", 0, 0 )
+		explosion:Fire( "Explode", 0, 0 )]]
+		--this explosion is just visual
+	local effectdata = EffectData()
+	effectdata:SetOrigin( self:GetPos() )
+	util.Effect( "HelicopterMegaBomb", effectdata )
 	
 	--deal flat damage to an ent in the radius
 	local function HurtEnt( ent )

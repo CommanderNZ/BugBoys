@@ -57,7 +57,6 @@ cant_into_walls_dist = 32,
 }
 ,
 
---[[
 craft_ammoamp =
 {	
 name = "craft_ammoamp",
@@ -66,11 +65,10 @@ ent = "structure_ammoamp",
 spawn_height = 32,
 craft_time = 15, --10
 crystals_required = 4,
-description = "",
+description = "Gives nearby bugs extra ammo every 1 second",
 display_grabbable = true,
 }
 ,
-]]--
 
 craft_wall =
 {	
@@ -86,7 +84,6 @@ box_collision = true,
 on_zap_description = "Temporarily disable",
 }
 ,
-
 
 craft_token =
 {	
@@ -426,7 +423,6 @@ on_zap_description = "Get on/off",
 }
 ,
 
---[[
 craft_blimp =
 {	
 name = "craft_blimp",
@@ -436,12 +432,9 @@ spawn_height = 48,
 special_ang = Angle(0, 0, 90),
 craft_time = 15, --15
 crystals_required = 7,
-description = "A 100 hp flying vehicle you can ride on \nYou cannot shoot while attached to the airship \nHold CTRL to move down \nZap the airship to attach/detach from it  \nCan carry up to 4 bugs",
+description = "A 100 hp flying vehicle you can ride on \nYou cannot shoot while attached to the airship \nHold ALT to move down \nZap the airship to attach/detach from it  \nCan carry up to 4 bugs",
 }
 ,
-]]--
-
---[[
 
 craft_chopper =
 {	
@@ -450,15 +443,12 @@ print_name = "Vehicle: Chopper",
 ent = "structure_chopper",
 spawn_height = 48,
 special_ang = Angle(0, 0, 90),
-craft_time = 5, --15
+craft_time = 15, --15
 crystals_required = 7,
-description = "",
+description = "A 100 hp flying vehicle you can ride on \nShoots missiles that hurt bugs and vehicles \nZap it to attach/detach from it",
 }
 ,
-]]--
 
-
---[[
 craft_plane =
 {	
 name = "craft_plane",
@@ -466,12 +456,11 @@ print_name = "Vehicle: Jet",
 ent = "structure_plane",
 spawn_height = 48,
 special_ang = Angle(0, 0, 90),
-craft_time = 5, --15
-crystals_required = 5,
-description = "",
+craft_time = 20, --15
+crystals_required = 10,
+description = "A 100 hp flying vehicle you can ride on \nShoots missiles that hurt bugs and vehicles \nZap it to attach/detach from it",
 }
 ,
-]]--
 
 craft_scout =
 {	
@@ -503,7 +492,6 @@ on_zap_description = "Get on/off",
 ,
 --
 
---[[
 craft_jumppad =
 {	
 name = "craft_jumppad",
@@ -518,8 +506,6 @@ cant_into_walls = true,
 cant_into_walls_dist = 32,
 }
 ,
-]]--
-
 
 --
 craft_sapper =
@@ -587,21 +573,19 @@ partner_display = "Entrance",
 ,
 
 
---[[
 craft_tokenport =
 {	
 name = "craft_tokenport",
 print_name = "Token Harvester",
 ent = "structure_tokenport",
 spawn_height = 32,
-craft_time = 5, --10
+craft_time = 10, --10
 crystals_required = 4,
 description = "Creates a token transporter entrance and exit \nCan be grabbed and re deployed anywhere \nAutomatically teleports any nearby tokens \nUse it to harvest from the map token spawners",
 cant_into_walls = true,
 cant_into_walls_dist = 32,
 }
 ,
-]]--
 
 craft_bugbrain =
 {	
@@ -623,7 +607,6 @@ not_in_shop = true,
 ,
 
 
---[[
 craft_rocket =
 {
 name = "craft_rocket",
@@ -631,12 +614,11 @@ print_name = "Upgrade: Rocket",
 ent = "structure_rocket",
 spawn_height = 48,
 craft_time = 10, --10
-crystals_required = 4,
-description = "",
+crystals_required = 6,
+description = "While grabbed: replaces your sliders with rockets \nRockets have a bigger damage/knockback radius \nRockets explode on impact",
 display_grabbable = true,
 }
 ,
-]]--
 
 
 --[[
@@ -728,15 +710,15 @@ cant_into_walls_dist = 32,
 }
 ,
 
---[[
+
 craft_nade =
 {
 name = "craft_nade",
 print_name = "Upgrade: Nade",
 ent = "structure_nade",
 spawn_height = 32,
-craft_time = 5, --10
-crystals_required = 4,
+craft_time = 10, --10
+crystals_required = 5,
 description = "",
 display_grabbable = true,
 description = "While grabbed: replaces your sliders with nades \nNades have a bigger damage/knockback radius \nNades explode on impact",
@@ -744,7 +726,6 @@ cant_into_walls = true,
 cant_into_walls_dist = 32,
 }
 ,
-]]--
 
 }
 

@@ -131,8 +131,8 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_FORWARD)) then
 			local Aim = Aim:Forward()
 			--if velo < max_velocity then
-				--MelonPhysObj:ApplyForceCenter(Aim * ( self.Ref.speed_forward ))
-				MelonPhysObj:ApplyForceCenter(Aim * ( force ))
+				--MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER * Aim * ( self.Ref.speed_forward ))
+				MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER * Aim * ( force ))
 			--end
 			--MelonPhysObj:SetVelocity(Aim * (self.Ref.speed_forward) - (Vector(0,0,1)*100) )
 			--MelonPhysObj:SetVelocity( self:GetVelocity( ) + (Aim * (self.Ref.speed_forward)) )
@@ -142,7 +142,7 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_BACK)) then
 			local Aim = Aim:Forward() * -1
 			--if velo < max_velocity then
-				MelonPhysObj:ApplyForceCenter( Aim * force )
+				MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force )
 			--end
 			input_thisframe = true
 		end
@@ -150,7 +150,7 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_MOVELEFT)) then
 			local Aim = Aim:Right() * -1
 			--if velo < max_velocity then
-				MelonPhysObj:ApplyForceCenter( Aim * force )
+				MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force )
 			--end
 			input_thisframe = true
 		end
@@ -159,7 +159,7 @@ function ENT:Think()
 			-- Get the right vector
 			local Aim = Aim:Right()
 			--if velo < max_velocity then
-				MelonPhysObj:ApplyForceCenter( Aim * force )
+				MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force )
 			--end
 			input_thisframe = true
 		end
@@ -168,7 +168,7 @@ function ENT:Think()
 		if (Owner:KeyDown(IN_JUMP)) then
 			if (self.JumpTimer < CurTime()) and self.JumpEnabled != false then
 				local Aim = Aim:Up()
-				MelonPhysObj:ApplyForceCenter( Aim * self.Ref.speed_jump )
+				MelonPhysObj:ApplyForceCenter(Aim * self.Ref.speed_jump )
 				self.JumpTimer = CurTime() + self.Ref.jump_cooldown
 				
 				self:EmitSound( SOUND_JUMP )
@@ -208,7 +208,7 @@ function ENT:Think()
 	--Decay velocity to lessen momentum if theres no input being held
 	if input_thisframe == false then
 		if speed >= 1 then
-			MelonPhysObj:ApplyForceCenter( -Vector(velo.x,velo.y,0)*7 )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -Vector(velo.x,velo.y,0)*7 )
 		end
 	end
 	
@@ -218,7 +218,7 @@ function ENT:Think()
 		local normalized_velo = veloxy:GetNormal()
 		local neg_vec = -(veloxy - (normalized_velo * 50))
 
-		MelonPhysObj:ApplyForceCenter( neg_vec * 10 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  neg_vec * 10 )
 	end
 	
 	

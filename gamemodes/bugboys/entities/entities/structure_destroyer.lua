@@ -191,7 +191,7 @@ function ENT:Think()
 			local finalang = newang:Forward()
 			finalang = Vector(finalang.x,finalang.y,0)
 			
-			MelonPhysObj:ApplyForceCenter( finalang * 25000 ) --15000
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  finalang * 25000 ) --15000
 			//MelonPhysObj:SetVelocity( finalang * 300 )
 			
 			input_thisframe = true
@@ -202,7 +202,7 @@ function ENT:Think()
 			local finalang = -newang:Forward()
 			finalang = Vector(finalang.x,finalang.y,0)
 			
-			MelonPhysObj:ApplyForceCenter( finalang * 15000 )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  finalang * 15000 )
 			//MelonPhysObj:SetVelocity( finalang * 300 )
 			
 			input_thisframe = true
@@ -211,7 +211,7 @@ function ENT:Think()
 		
 		if (ply:KeyDown(IN_MOVELEFT)) then
 			//local Aim = Aim:Right() * -1
-			//MelonPhysObj:ApplyForceCenter( Aim * force_add )
+			//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force_add )
 
 			local vec = Vector(0,30,0)
 			if moving_back == true then
@@ -232,7 +232,7 @@ function ENT:Think()
 		
 		if (ply:KeyDown(IN_MOVERIGHT)) then
 			//local Aim = Aim:Right()
-			//MelonPhysObj:ApplyForceCenter( Aim * force_add )
+			//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Aim * force_add )
 			
 			local vec = Vector(0,-30,0)
 			if moving_back == true then
@@ -295,19 +295,19 @@ function ENT:Think()
 	
 	local speed = self:GetVelocity( ):Length()
 	
-	//MelonPhysObj:ApplyForceCenter( -velonorm * 8000 )
+	//MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -velonorm * 8000 )
 	//if self:DestroyerOnGround() then
-		MelonPhysObj:ApplyForceCenter( -veloxy:GetNormal() * 8000 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -veloxy:GetNormal() * 8000 )
 	//end
 	
 	--downward force
-	MelonPhysObj:ApplyForceCenter( Vector(0,0,-1) * 5000 )
+	MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  Vector(0,0,-1) * 5000 )
 	
 	--Decay velocity to lessen momentum if theres no input being held
 	--[[
 	if input_thisframe == false then
 		if speed >= 1 then
-			MelonPhysObj:ApplyForceCenter( -velonorm * 1000 )
+			MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER *  -velonorm * 1000 )
 		end
 	end
 	]]--
@@ -340,7 +340,7 @@ function ENT:Think()
 		//local neg_vec = -(veloxy - (normalized_velo))
 		local neg_vec = -veloxy
 		
-		MelonPhysObj:ApplyForceCenter( neg_vec * 50 )
+		MelonPhysObj:ApplyForceCenter( TICK_FORCE_MULTIPLIER * neg_vec * 50 )
 	end
 	
 	
