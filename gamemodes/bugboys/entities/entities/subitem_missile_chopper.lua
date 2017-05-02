@@ -101,7 +101,10 @@ function ENT:StartEffect( hitent )
 
 
 	self:EmitSound(self.Ref.sound_explode)
-	self:Remove()
+	
+	timer.Simple(0, function()
+		self:Remove() -- Fix errors about changing physics in callback
+	end)
 end
 
 
