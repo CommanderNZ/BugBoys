@@ -24,6 +24,11 @@ end
 --triggers the bomb to attach to a surface and start the fuse
 function ENT:RayTrigger( activator )
 	if !SERVER then return end
+	
+	if activator:GetPos():Distance(self:GetPos()) > self.Ref.radius_activation then
+		activator:ChatPrint( "You must stand closer to the C4!")
+		return
+	end
 
 	--cant set this off before the game starts
 	if GetGamePhase() != "BegunGame" then return end

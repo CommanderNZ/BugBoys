@@ -66,7 +66,7 @@ function ENT:Shoot( )
 	end
 	
 	-- Do not shoot if there's already many missiles floating around.
-	if #ents.FindByClass(self.Ref.missile) > (500 * engine.TickInterval()) then
+	if #ents.FindByClass(self.Ref.ent_shoot) > (500 * engine.TickInterval()) then
 		return
 	end
 	
