@@ -40,6 +40,10 @@ function ENT:Initialize()
 end
 
 function ENT:Teleport( token )
+	if not IsValid(self.ExitEnt) then
+		return
+	end
+	
 	local amount = token.Amount
 	local pos = token:GetPos()
 	self.ExitEnt:Import( amount )
