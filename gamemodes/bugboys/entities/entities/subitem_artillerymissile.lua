@@ -29,7 +29,7 @@ function ENT:Initialize()
 end
 
 function ENT:Think()
-	if CurTime() - self.SpawnTime >= 10 then
+	if CurTime() - self.SpawnTime >= 8 then
 		self:Remove()
 	end
 end
@@ -89,5 +89,8 @@ function ENT:StartEffect( hitent )
 	]]--
 	
 	self:EmitSound( self.Ref.sound_explode )
-	self:Remove()
+	
+	timer.Simple(0, function()
+		self:Remove() -- Fix errors about changing physics in callback
+	end)
 end
