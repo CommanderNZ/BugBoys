@@ -557,9 +557,10 @@ angular = true,
 display_radius_sphere = true,
 size = 32,
 health = 200,
-//radius_activation = 200,
+radius_activation = 200,
 radius = 700, -- to display it when its being built
 radius_damage = 700,
+
 damage = 350,
 triggerable = true,
 //model = "models/bugboys/box01_small.mdl",

@@ -133,6 +133,8 @@ concommand.Add( "bb_teammenuclose", fTeamMenuClose )
 
 --Command to join a team during the Team Setup
 function fFakeBot( ply, command, arguments )
+	if not player:IsAdmin() then return end
+	
 	local name = arguments[1]
 
 	player.CreateNextBot( name )
